@@ -4,20 +4,26 @@
 'use strict';
 var app = angular.module('test_module', []);
 
-app.controller('TestCtrl', [ '$scope', '$compile', function ($scope, $compile) {
-    //directive test
-    $scope.color = 'red';
+app.controller('TestCtrl', [ '$scope', function ($scope) {
+     $scope.b = [1, 2, 3];
 
-    //$compile函数会返回一个link函数，而该函数传入scope就可以得到一个解析后的元素
-    var link = $compile($('#a'));
+    $scope.show = function (v) {
+        console.log(v);
+    }
 
-    //定义新的scope，而不是引用controller的scope
-    var scope = $scope.$new(true);
+    $scope.color_click = function () {
+        $scope.color = 'green';
+    }
 
-    scope.text = 'text';
+    $scope.a = 1;
 
-    //传入参数得到的node
-    var node = link(scope);
+    $scope.title = "this is a title";
+    $scope.text = "this is a text";
 
-    // $('#b').append(node);
+    $scope.para = "init para";
+
+    $scope.jqueryPara = "jquery init para";
+
+    $scope.to = 'ari@fullstack.io';
+    $scope.emailBody = 'Hello {{ to }},\n\nMy name is Ari too!';
 }]);

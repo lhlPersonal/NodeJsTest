@@ -10,14 +10,91 @@
 <body ng-app="test_module">
 <div class="container" ng-controller="TestCtrl">
     <div class="row">
-        <div color="color">hello,welcome</div>
-        <div id="a">A {{text}}</div>
-        <div id="b">B</div>
-        <div more>more directive</div>
-        <div show-length>show text:{{ text }}
-            <button ng-click="text='xx'">改变</button>
-        </div>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <p color="color">有颜色的文本</p>
+                <a ng-click="color_click()" class="btn-link">change color</a>
+            </li>
+            <li class="list-group-item">
+                <div more>123</div>
+            </li>
+            <li class="list-group-item">
+                <div show1>aaaaaaaaaaaaaaaaaaaaaaa</div>
+            </li>
+            <li class="list-group-item">
+                <div ab>contoller Test</div>
+            </li>
+            <li class="list-group-item">
+                <c>
+                    <d ob="{{ob}}"></d>
+                </c>
+                <test1 a="" b="" c="">test1 directive</test1>
+            </li>
+            <li class="list-group-item">
+                <input type="text" ng-model="b" test/>
+                <button ng-click="show(b)">查看</button>
+            </li>
+            <li class="list-group-item">
+                <ys-block title="title" text="text"></ys-block>
+                <p>标题: <input ng-model="title"/></p>
 
+                <p>内容: <input ng-model="text"/></p></li>
+            <li class="list-group-item">
+                <div ng-init="obj_list=[1,2,3,4]; name='name'">
+                    <ul>
+                        <for o in obj_list>
+                            <li class="list-group-item">{{ o }}, {{ name }}</li>
+                        </for>
+                    </ul>
+                    <button ng-click="obj_list=[1,2]; name='o?'">修改</button>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div>
+                    <if true="a == 1">
+                        <p>判断为真, {{ name }}</p>
+                        <else>
+                            <p>判断为假, {{ name }}</p>
+                        </else>
+                    </if>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div>
+                    <p>a: <input ng-model="a"/></p>
+
+                    <p>name: <input ng-model="name"/></p>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <a ta>click to show para</a>
+
+                <div style="clear:both"></div>
+                <span>{{para}}</span>
+            </li>
+            <li class="list-group-item">
+                <span ta1>{{jqueryPara}}</span>
+            </li>
+            <li class="list-group-item">
+                <input ng-model="expr" tp
+                       type="text"
+                       placeholder="Enter an expression"/>
+
+                <div style="clear:both"></div>
+                <span>{{testVal}}</span>
+            </li>
+            <li class="list-group-item">
+                <input ng-model="to" ti
+                       type="email"
+                       placeholder="Recipient"/>
+
+                <div class="clearfix" style="margin-top: 10px"></div>
+
+                <textarea ng-model="emailBody" style="width: 200px;height: 100px"></textarea>
+
+                <pre>{{ previewText }}</pre>
+            </li>
+        </ul>
     </div>
 </div>
 
