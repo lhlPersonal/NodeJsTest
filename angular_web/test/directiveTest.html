@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Test</title>
     <base href="/">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 
 </head>
 <body ng-app="test_module">
@@ -94,14 +94,76 @@
 
                 <pre>{{ previewText }}</pre>
             </li>
+            <li>
+                <form name="signup_form" novalidate class="form-horizontal" ng-submit="signupForm()">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            用户名
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" placeholder="Name" class="form-control" name="name"
+                                   ng-model="signup.name" ng-minlength=
+                                    3 ng-maxlength=20 required ng-pattern="/^a-zA-Z$/"/>
+
+                            <div class="error" ng-messages="signup_form.name.$error" multiple>
+                                <div class="help-block" ng-message="required">Make sure you enter your name</div>
+                                <div class="help-block" ng-message="minlength">Your name must be at least 3 characters
+                                </div>
+                                <div class="help-block" ng-message="pattern">Your name must be a-Z characters</div>
+                                <div class="help-block" ng-message="maxlength">Your name cannot be longer than 20
+                                    characters
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </li>
+            <li>
+                <my-dialog ng-hide="dialogIsHidden">
+                    Check out the contents, {{name1}}!
+                </my-dialog>
+                <button type="button" ng-click="hideDialog()">change dialog</button>
+            </li>
+            <li>
+                <div class="help-block" priv-scope my-url="http://google.com"
+                     my-link-text="Click me to go to Google">
+                </div>
+
+            </li>
+            <li>
+
+                <label>Their URL field:</label>
+                <input type="text" ng-model="theirUrl">
+
+                <div class="help-block" priv-scope1 my-url="theirUrl"
+                     my-link-text="click to google.">
+                </div>
+            </li>
+            <li>
+                Type here to make sibling readonly:
+                <input type="text" ng-model="someProperty"><br/>
+                <input type="text"
+                       ng-readonly="someProperty"
+                       value="Some text here"/>
+            </li>
+            <li>
+                {{ someBareValue }}
+                <button ng-click="someAction()">Communicate to child</button>
+                <div ng-controller="ChildController">
+                    {{ someBareValue }}
+                    <button ng-click="childAction()">Communicate to parent</button>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
 
 
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../bower_components/angular/angular.min.js"></script>
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-messages/angular-messages.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../test/test_controller.js"></script>
 <script src="../test/test_directive.js"></script>
 </body>

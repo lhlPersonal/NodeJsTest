@@ -516,15 +516,15 @@ app.directive("tp", function ($parse) {
         restrict: "A"
     }
 });
-
+/**
+ * $interpolate
+ */
 app.directive("ti", function ($interpolate) {
     var func = function () {
         return function ($scope) {
             $scope.$watch("to", function () {
-
-                    var temp = $interpolate($scope.emailBody);
-                    $scope.previewText = temp({to: $scope.to});
-              
+                var temp = $interpolate($scope.emailBody);
+                $scope.previewText = temp({to: $scope.to});
             });
         }
     }
@@ -533,3 +533,73 @@ app.directive("ti", function ($interpolate) {
         restrict: "A"
     }
 });
+
+/**
+ * template ng-transclude的使用：意指将指令myDialog元素的内容作为ng-transclude指令所在元素的内容。
+ *
+ * transclude的意义：在compile函数中为第三个参数，在link函数中为第五个参数，该参数
+ * 为一个函数，传入$scope，会返回指令所在的原始节点信息，而$element已经变成了comment，无法取原始节点中的信息。
+ * 如果transclude为element，则会返回原始节点，如果为其它值，则返回原始节点的内容。
+ *
+ * 当transclude为element时，template不会呈现,ng-transclude没有意义。
+ *
+ *
+ */
+app.directive("myDialog", function () {
+    //第三个参数为$transclude
+    var compileFunc = function ($element, $attr, $transclude) {
+        return function ($scope, $element, $attr, $controller) {
+            var node = $transclude($scope);
+        };
+    }
+    //第五个参数为$transclude
+    var postLink = function ($scope, $element, $attr, $controller, $transclude) {
+        var node = $transclude($scope);
+    }
+
+    return {
+        restrict: "E",
+        transclude: "element",//如果为element则必须加上replace：true，否则template不会起作用，如果为其它值，则无需加。
+        // compile: func,
+        link: postLink,
+        replace: true,
+//        template: '<div class="sidebox"><div class="content"><h2 class="header">' +
+//            '{{ name1 }}</h2><span class="content" ng-transclude></span></div></div>'
+        templateUrl: "../test/temp.html"
+    };
+});
+
+/**
+ * 从dom中向指令私有scope传值
+ */
+app.directive("privScope", function () {
+    return {
+        restrict: "A",
+        scope: {
+            myUrl: "@",
+            myLinkText: "@"
+        },
+        template: "<div><a href='{{myUrl}}'>{{myLinkText}}</a></div>"
+    }
+});
+
+/**
+ * 将外部ngModel的值传入指令内部的私有scope
+ */
+app.directive("privScope1", function () {
+    return {
+        restrict: "A",
+        link: function ($scope) {
+            var s = $scope;
+        },
+        scope: {
+            myUrl: "=",
+            myLinkText: "@"
+        },
+        template: '<label>My Url Field:</label><input type="text" ng-model="myUrl" /><a href="{{myUrl}}">{{myLinkText}}</a></a></div>'
+    }
+});
+
+//app.directive("")
+
+
