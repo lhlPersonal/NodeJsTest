@@ -2,3 +2,4 @@ node_modules/
 async_demo-master/
 angular_web/bower_components/
 .idea/
+access.log
