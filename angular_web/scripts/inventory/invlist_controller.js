@@ -30,9 +30,7 @@ app.controller('InvlistCtrl', ['invlistSvce', '$scope', '$routeParams', '$http',
     $scope.getDev = function (id) {
         invlistSvce.getDev(id, $scope);
     }
-    $scope.color_click = function () {
-        $scope.color = 'green';
-    }
+
     $scope.filterOptions = {
         filterText: "",
         useExternalFilter: true
@@ -116,19 +114,4 @@ app.controller('InvlistCtrl', ['invlistSvce', '$scope', '$routeParams', '$http',
 
         });
     }
-
-    //  $scope.a = [1, 2, 3];
-
-//    $scope.show = function (v) {
-//        console.log(v);
-//    }
-
-    $scope.a = 1;
-
-    $scope.title = "this is a title";
-    $scope.text = "this is a text";
-
-    $scope.para = "init para";
-
-    $scope.jqueryPara = "jquery init para";
 }])

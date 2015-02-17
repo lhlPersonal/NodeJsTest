@@ -2,31 +2,41 @@
  * Created by bulusli on 2014/10/14.
  */
 'use strict';
-app.factory('invlistSvce', ['$http', '$window', '$location', function ($http, $window, $location) {
+app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Restangular', function ($http, $window, $location, $resource, Restangular) {
     var baseSvrUrl = '/svr/inv/';
-    console.log("app service called");
+
     function save(data, $scope) {
-        $http({
-            method: 'post',
-            url: baseSvrUrl + 'add',
-            data: data
-        }).success(function (data) {
-            {
-                if (data.error) {
-                    $window.alert(data.error);
-                } else {
-                    $scope.devices.push(data);
-                }
+//        $http({
+//            method: 'post',
+//            url: baseSvrUrl + 'add',
+//            data: data
+//        }).success(function (data) {
+//            {
+//                if (data.error) {
+//                    $window.alert(data.error);
+//                } else {
+//                    $scope.devices.push(data);
+//                }
+//            }
+//        })
+
+        //$resource主要用于和restfulAPI进行交互。普通的http请求不太合适。
+        $resource(baseSvrUrl + 'add').save({}, data, function (data) {
+            if (data.error) {
+                $window.alert(data.error);
+            } else {
+                $scope.devices.push(data);
             }
-        })
+        });
     };
     function update(dev, $scope) {
-        $http({
+        var q = $http({
             method: 'put',
             url: baseSvrUrl + 'update',
             cache: false,
             params: dev
-        }).success(function (data, status, headers, config) {
+        });
+        q.success(function (data, status, headers, config) {
             {
                 if (data.error) {
                     $window.alert(data.error);
@@ -43,11 +53,12 @@ app.factory('invlistSvce', ['$http', '$window', '$location', function ($http, $w
         })
     };
     function getDev(id, $scope) {
-        $http({
+        var q = $http({
             method: 'get',
             url: baseSvrUrl + 'getDev',
             params: {id: id}
-        }).success(function (data) {
+        });
+        q.success(function (data) {
             {
                 if (data.error) {
                     $window.alert(data.error);
@@ -88,11 +99,12 @@ app.factory('invlistSvce', ['$http', '$window', '$location', function ($http, $w
         })
     };
     function show($scope) {
-        $http({
+        var q = $http({
             method: 'get',
             url: baseSvrUrl + 'show',
             data: {}
-        }).success(function (data) {
+        });
+        q.success(function (data) {
             {
                 if (!data.error) {
                     $scope.devices = data;

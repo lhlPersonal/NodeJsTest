@@ -10,14 +10,18 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "angular_web/bower_components"
   ],
   "dependencies": {
     "angular-route": "~1.3.0",
-    "angular": "~1.3.0",
+    "angular": "~1.3.13",
     "bootstrap": "~3.2.0",
     "d3": "~3.4.12",
-    "angular-bootstrap": "~0.11.2"
+    "angular-bootstrap": "~0.11.2",
+    "angular-messages": "~1.3.13"
   },
-  "private": true
+  "private": true,
+  "homepage": "https://github.com/lhlPersonal/NodeJsTest",
+  "description": "bower file"
 }

@@ -2,6 +2,10 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{NodeJsTest node_modules}" />
+<<<<<<< HEAD
+=======
+    <file url="PROJECT" libraries="{Node.js v0.10.29 Core Modules}" />
+>>>>>>> develop
     <includedPredefinedLibrary name="Node.js Globals" />
   </component>
 </project>
