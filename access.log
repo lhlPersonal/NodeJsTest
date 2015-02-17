@@ -1,3 +1,6 @@
 [2015-02-17 19:31:24.042] [INFO] console - Creating global mongoose connection...
 [2015-02-17 19:31:24.087] [ERROR] console - Tue, 17 Feb 2015 11:31:24 GMT NodeJsTest Express server listening on port 3001
 [2015-02-17 19:31:24.108] [INFO] console - Mongoose default connection open to mongodb://localhost:27017/node_DB
+[2015-02-17 20:34:19.787] [INFO] console - Creating global mongoose connection...
+[2015-02-17 20:34:19.815] [ERROR] console - Tue, 17 Feb 2015 12:34:19 GMT NodeJsTest Express server listening on port 3001
+[2015-02-17 20:34:19.822] [INFO] console - Mongoose default connection open to mongodb://localhost:27017/node_DB
