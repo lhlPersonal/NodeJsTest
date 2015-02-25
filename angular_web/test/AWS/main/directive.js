@@ -4,7 +4,7 @@
 app.directive('googleSignin', function () {
     return {
         restrict: 'A',
-        template: '<span id="signinButton"></span>',
+        template: '<span id="signinButton1"></span>',
         replace: true,
         scope: {
             afterSignin: '&'
@@ -39,6 +39,8 @@ app.directive('googleSignin', function () {
             attrs.$set('data-requestvisibleactions',
                 'http://schemas.google.com/AddActivity')
             attrs.$set('data-scope', scopeUrls.join(' '));
+
+            //  gapi.signin.render('signInButton');
 // 最后，刷新客户端库
 // 强迫按钮在浏览器中重绘
 //            (function () {
@@ -53,17 +55,11 @@ app.directive('googleSignin', function () {
     }
 });
 
-
-app.directive("showInfo", function () {
+app.directive("googleSignin1", function () {
     return {
         restrict: "A",
-        link: function ($scope, $element) {
-            setTimeout(function () {
-                // $scope.$apply(function () {
-                $element.html($scope.user);
-                alert($scope.user);
-                // });
-            }, 10000);
+        link: function ($scope) {
+            $scope.glSign();
         }
     };
 });
