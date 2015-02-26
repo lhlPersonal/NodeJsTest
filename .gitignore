@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-
 .idea/
-
-=======
-.idea/
->>>>>>> develop
+astnc_demo-master/
+access.log
+node_modules/
+bin/
