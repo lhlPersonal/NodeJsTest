@@ -8,20 +8,56 @@ app.controller("dvLoginController", ["$scope", "dvLoginService", function ($scop
     }
     $scope.nameBlurError = false;
     $scope.pwdBlurError = false;
+    $scope.userValid = true;
 
     $scope.login = function () {
+        if ($scope.sign_form.$valid) {
+            if (dvLoginService.checkUser($scope.userInfo)) {
+                location.href = "/views/inventory.html";
+            } else {
+                $scope.userValid = false;
+            }
+        } else {
+            $scope.userValid = true;
+            if (!$scope.userInfo.name) {
+                $scope.nameBlurError = true;
+            }
+            if (!$scope.userInfo.pwd) {
+                $scope.pwdBlurError = true;
+            }
+        }
     }
 
     $scope.nameFocus = function () {
         $scope.nameBlurError = false;
     }
     $scope.nameBlur = function () {
-        $scope.nameBlurError = true;
+        $scope.userValid = true;
+
+        if ($scope.sign_form.$valid) {
+            if (!dvLoginService.checkUser($scope.userInfo)) {
+                $scope.userValid = false;
+            }
+        } else {
+            if (!$scope.userInfo.name) {
+                $scope.nameBlurError = true;
+            }
+        }
     }
     $scope.pwdFocus = function () {
         $scope.pwdBlurError = false;
     }
-    $scope.pwdFocus = function () {
-        $scope.pwdBlurError = true;
+    $scope.pwdBlur = function () {
+        $scope.userValid = true;
+
+        if ($scope.sign_form.$valid) {
+            if (!dvLoginService.checkUser($scope.userInfo)) {
+                $scope.userValid = false;
+            }
+        } else {
+            if (!$scope.userInfo.pwd) {
+                $scope.pwdBlurError = true;
+            }
+        }
     }
 }]);
