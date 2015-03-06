@@ -2,55 +2,71 @@
  * Created by bulusli on 2015/2/27.
  */
 
-app.directive("validName", function () {
-    var link = function (scope, ele, attrs) {
-        scope.$watch("nameBlurError", function (new_val) {
-            if (!scope.sign_form.$pristine) {
-                if (new_val) {
-                    ele.addClass("invalid")
-                } else {
+app.directive("validateStyle", function () {
+    var compile = function ($element) {
+        var mark = $("<!--validate-style -->");
 
-                    ele.addClass("valid")
+        $element.after(mark);
+        $element.remove();
+
+        var link = function (scope) {
+            //监测输入框的边框样式。
+            scope.$watch(function () {
+                return scope.blurMark;
+            }, function (new_val) {
+                if (scope.startWatch) {
+                    var valid = (new_val && scope.sign_form.$valid && !scope.nameBlurError && !scope.pwdBlurError);
+                    var eleName = angular.element("[name=username]");
+                    var elePwd = angular.element("[name=pwd]");
+
+                    eleName.removeClass("invalid").addClass("valid");
+                    elePwd.removeClass("invalid").addClass("valid");
+
+                    if (!valid) {
+                        if (scope.nameBlurError) {
+                            eleName.removeClass("valid").addClass("invalid");
+                        }
+                        if (scope.pwdBlurError) {
+                            elePwd.removeClass("valid").addClass("invalid");
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        return link;
     }
 
     return {
-        restrict: "A",
-        link: link
+        restrict: "E",
+        compile: compile
     };
-});
+})
 
-app.directive("validPwd", function () {
-    var link = function (scope, ele, attrs) {
-        scope.$watch("pwdBlurError", function (new_val) {
-                if (!scope.sign_form.$pristine) {
-                    if (new_val) {
-                        ele.addClass("invalid");
-                    } else {
-                        ele.addClass("valid");
-                    }
-                }
+/**
+ * $formatters用与实际绑定的值发生改变时，比如$scope.userInfo.name="ZZZZZZZZZZZZZZZ";
+ */
+app.directive("nameFormat", function () {
+    var link = function (scope, element, attrs, ngModel) {
+        var lower = function (v) {
+            if (v) {
+                return v.toLowerCase();
             }
-        );
+        }
+        var f = function (v) {
+            if (v) {
+                var zz = ngModel;
+                return v + "dddd";
+            }
+        }
 
-        scope.$watch("userValid", function (new_val) {
-                if (!scope.sign_form.$pristine && scope.sign_form.$valid) {
-                    if (new_val) {
-                        angular.element("[name=username]").addClass("valid");
-                        ele.addClass("valid");
-                    } else {
-                        angular.element("[name=username]").addClass("invalid");
-                        ele.addClass("invalid");
-                    }
-                }
-            }
-        );
+        ngModel.$formatters.push(lower);
+        ngModel.$parsers.push(f);
     }
 
     return {
+        link: link,
         restrict: "A",
-        link: link
+        require: "ngModel"
     };
 });

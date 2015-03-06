@@ -1,7 +1,7 @@
 /**
  * Created by bulusli on 2015/2/27.
  */
-var app = angular.module("dvLoginApp", ["ngMessages"]);
+var app = angular.module("dvLoginApp", ["ngMessages","pasvaz.bindonce","pascalprecht.translate"]);
 
 app.run(["$cacheFactory", function ($cacheFactory) {
     var usrInfo = $cacheFactory("userInfo");
