@@ -1,9 +1,10 @@
 /**
  * Created by bulusli on 2015/2/27.
  */
-var app = angular.module("dvLoginApp", ["ngMessages","pasvaz.bindonce","pascalprecht.translate"]);
+var app = angular.module("dvLoginApp", ["ngMessages", "pasvaz.bindonce", "pascalprecht.translate"]);
 
 app.run(["$cacheFactory", function ($cacheFactory) {
+    console.log("run start");
     var usrInfo = $cacheFactory("userInfo");
     usrInfo.put("userList", [
         {name: "aaaaaaaaaaaaaaaaa", pwd: "11111111111111"},
@@ -12,4 +13,11 @@ app.run(["$cacheFactory", function ($cacheFactory) {
         {name: "ddddddddddddddddd", pwd: "44444444444444"},
         {name: "eeeeeeeeeeeeeeeee", pwd: "55555555555555"}
     ]);
+}]).config(["$provide", function ($provide) {
+    console.log("config start");
+
+    $provide.factory("testService", function () {
+
+    });
+
 }]);

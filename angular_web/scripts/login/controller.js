@@ -8,6 +8,7 @@
  * 2.服务端验证：，格式验证通过后，不论哪个输入框blur或者直接点击login按钮都会对两个框进行验证。
  */
 app.controller("dvLoginController", ["$scope", "dvLoginService", function ($scope, dvLoginService) {
+    console.log("controller start");
     $scope.nameBlurError = false;//name框blur时是否显示错误
     $scope.pwdBlurError = false;//密码框blur时是否显示错误
     $scope.blurMark = false;//blur标记

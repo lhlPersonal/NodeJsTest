@@ -3,6 +3,7 @@
  */
 
 app.directive("validateStyle", function () {
+    console.log("directive start");
     var compile = function ($element) {
         var mark = $("<!--validate-style -->");
 
@@ -47,6 +48,7 @@ app.directive("validateStyle", function () {
  * $formatters用与实际绑定的值发生改变时，比如$scope.userInfo.name="ZZZZZZZZZZZZZZZ";
  */
 app.directive("nameFormat", function () {
+    console.log("directive2 start");
     var link = function (scope, element, attrs, ngModel) {
         var lower = function (v) {
             if (v) {

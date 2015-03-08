@@ -1197,7 +1197,7 @@ function getNgAttribute(element, ngAttr) {
   var attr, i, ii = ngAttrPrefixes.length;
   element = jqLite(element);
   for (i = 0; i < ii; ++i) {
-    attr = ngAttrPrefixes[i] + ngAttr;
+    attr = ngAttrPrefixes[i] + ngAttr;//ng-strict-di
     if (isString(attr = element.attr(attr))) {
       return attr;
     }
@@ -1430,6 +1430,7 @@ function bootstrap(element, modules, config) {
     }
 
     modules = modules || [];
+      //在数组的最前面插入
     modules.unshift(['$provide', function($provide) {
       $provide.value('$rootElement', element);
     }]);
@@ -1442,6 +1443,7 @@ function bootstrap(element, modules, config) {
     }
 
     modules.unshift('ng');
+      //modules=['ng',['$provide', function($provide){ $provide.value('$rootElement', element);}],'dvLoginApp'];
     var injector = createInjector(modules, config.strictDi);
     injector.invoke(['$rootScope', '$rootElement', '$compile', '$injector',
        function bootstrapApply(scope, element, compile, injector) {
@@ -1682,20 +1684,31 @@ var NODE_TYPE_DOCUMENT_FRAGMENT = 11;
  * Interface for configuring angular {@link angular.module modules}.
  */
 
+//返回angular.module函数。
 function setupModuleLoader(window) {
 
   var $injectorMinErr = minErr('$injector');
   var ngMinErr = minErr('ng');
 
   function ensure(obj, name, factory) {
-    return obj[name] || (obj[name] = factory());
+    if(obj[name]){
+return obj[name];
+    }else{
+        obj[name]=factory();
+        return obj[name];
+    }
+    //  return obj[name] || (obj[name] = factory());
+
   }
 
   var angular = ensure(window, 'angular', Object);
-
+//var angular=widnow.angular||{};
   // We need to expose `angular.$$minErr` to modules such as `ngResource` that reference it during bootstrap
   angular.$$minErr = angular.$$minErr || minErr;
 
+    //return angular.module||angular.module=function(name,requires,configFn){...};
+        //angular.module("",[],angular.noop);//返回moduleInstance对象，该对象包含了angular.module提供的所有API。比如
+        //directive，config，controller，service，constant，value等等。
   return ensure(angular, 'module', function() {
     /** @type {Object.<string, angular.Module>} */
     var modules = {};
@@ -1989,7 +2002,6 @@ function setupModuleLoader(window) {
   });
 
 }
-
 /* global: toDebugString: true */
 
 function serializeObject(obj) {
@@ -2166,10 +2178,15 @@ function publishExternalAPI(angular) {
   try {
     angularModule('ngLocale');
   } catch (e) {
-    angularModule('ngLocale', []).provider('$locale', $LocaleProvider);
+  var pp=  angularModule('ngLocale', []);
+      pp.provider('$locale', $LocaleProvider);
+      var z=pp;
+    //等价于  angular.module('ngLocale',[]).invokeLater('$provide', 'provider')('$locale', $LocaleProvider);
+      //返回的是moduleInstance
+      //  //[].push('$provide', 'provider','$locale',$LocaleProvider);
   }
 
-  angularModule('ng', ['ngLocale'], ['$provide',
+ var f= angularModule('ng', ['ngLocale'], ['$provide',
     function ngModule($provide) {
       // $$sanitizeUriProvider needs to be before $compileProvider as it is used by it.
       $provide.provider({
@@ -2260,6 +2277,8 @@ function publishExternalAPI(angular) {
       });
     }
   ]);
+
+    var t=f;
 }
 
 /* global JQLitePrototype: true,
@@ -3972,7 +3991,7 @@ function annotate(fn, strictDi, name) {
  * ```
  */
 
-
+//modulesToload=['ng',['$provide', function($provide){ $provide.value('$rootElement', element);}],'dvLoginApp']
 function createInjector(modulesToLoad, strictDi) {
   strictDi = (strictDi === true);
   var INSTANTIATING = {},
@@ -3981,7 +4000,7 @@ function createInjector(modulesToLoad, strictDi) {
       loadedModules = new HashMap([], true),
       providerCache = {
         $provide: {
-            provider: supportObject(provider),
+            provider: supportObject(provider),//$provide.provider=provider(key,value);
             factory: supportObject(factory),
             service: supportObject(service),
             value: supportObject(value),
@@ -3996,6 +4015,15 @@ function createInjector(modulesToLoad, strictDi) {
             }
             throw $injectorMinErr('unpr', "Unknown provider: {0}", path.join(' <- '));
           })),
+          //providerInjector=providerCache.$injector={
+    //  invoke: invoke,
+     //   instantiate: instantiate,
+    //    get: getService,
+     //   annotate: createInjector.$$annotate,
+     //   has: function(name) {
+     //   return providerCache.hasOwnProperty(name + providerSuffix) || cache.hasOwnProperty(name);
+  //  }
+//};
       instanceCache = {},
       instanceInjector = (instanceCache.$injector =
           createInternalInjector(instanceCache, function(serviceName, caller) {
@@ -4003,7 +4031,7 @@ function createInjector(modulesToLoad, strictDi) {
             return instanceInjector.invoke(provider.$get, provider, undefined, serviceName);
           }));
 
-
+//调用run里的方法。
   forEach(loadModules(modulesToLoad), function(fn) { instanceInjector.invoke(fn || noop); });
 
   return instanceInjector;
@@ -4080,7 +4108,7 @@ function createInjector(modulesToLoad, strictDi) {
     var runBlocks = [], moduleFn;
     forEach(modulesToLoad, function(module) {
       if (loadedModules.get(module)) return;
-      loadedModules.put(module, true);
+      loadedModules.put(module, true);//每个module加入hash表中
 
       function runInvokeQueue(queue) {
         var i, ii;
@@ -4093,7 +4121,7 @@ function createInjector(modulesToLoad, strictDi) {
       }
 
       try {
-        if (isString(module)) {
+        if (isString(module)) {//
           moduleFn = angularModule(module);
           runBlocks = runBlocks.concat(loadModules(moduleFn.requires)).concat(moduleFn._runBlocks);
           runInvokeQueue(moduleFn._invokeQueue);
@@ -4196,7 +4224,7 @@ function createInjector(modulesToLoad, strictDi) {
     }
 
     return {
-      invoke: invoke,
+          invoke: invoke,
       instantiate: instantiate,
       get: getService,
       annotate: createInjector.$$annotate,
@@ -26123,6 +26151,7 @@ var minlengthDirective = function() {
 
   jqLite(document).ready(function() {
     angularInit(document, bootstrap);
+  var zz=angular;
   });
 
 })(window, document);
