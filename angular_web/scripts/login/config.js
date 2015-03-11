@@ -13,11 +13,17 @@ app.run(["$cacheFactory", function ($cacheFactory) {
         {name: "ddddddddddddddddd", pwd: "44444444444444"},
         {name: "eeeeeeeeeeeeeeeee", pwd: "55555555555555"}
     ]);
-}]).config(["$provide", function ($provide) {
-    console.log("config start");
+}]).
+    config(["$provide", "svProvProvider", "KEY", function (provide, svProv, key) {
+        svProv.setUrl("http://localhost:8732");
 
-    $provide.factory("testService", function () {
-
-    });
-
-}]);
+        provide.decorator("s11", ["$delegate", function (delegate) {
+            return {
+                showAlert: function () {
+                    alert("delegate called");
+                    delegate.showAlert();
+                    alert(key);
+                }}
+        }]);
+    }])
+;

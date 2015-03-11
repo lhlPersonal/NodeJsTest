@@ -20,3 +20,30 @@ app.factory("dvLoginService", ["$http", "$cacheFactory", function ($http, $cache
         checkUser: checkUser
     };
 }]);
+
+
+app.service("s11", function () {
+    return {
+        showAlert: function () {
+            alert("ddd");
+        }
+    }
+});
+
+app.provider("svProv", function () {
+    var _url = "";
+
+    this.setUrl = function (url) {
+        _url = url;
+    }
+
+    this.$get = function () {
+        return{
+            getUrl: function () {
+                return _url;
+            }
+        }
+    }
+});
+
+app.constant("KEY","111111111111111111111");

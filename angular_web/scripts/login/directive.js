@@ -11,6 +11,9 @@ app.directive("validateStyle", function () {
         $element.remove();
 
         var link = function (scope) {
+           // if(!scope.blurMark){
+                console.log("no blurMark");
+          //  }
             //监测输入框的边框样式。
             scope.$watch(function () {
                 return scope.blurMark;
