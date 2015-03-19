@@ -11,9 +11,9 @@ app.directive("validateStyle", function () {
         $element.remove();
 
         var link = function (scope) {
-           // if(!scope.blurMark){
-                console.log("no blurMark");
-          //  }
+            // if(!scope.blurMark){
+            console.log("no blurMark");
+            //  }
             //监测输入框的边框样式。
             scope.$watch(function () {
                 return scope.blurMark;
@@ -65,8 +65,8 @@ app.directive("nameFormat", function () {
             }
         }
 
-        ngModel.$formatters.push(lower);
-        ngModel.$parsers.push(f);
+      //  ngModel.$formatters.push(lower);
+      //  ngModel.$parsers.push(f);
     }
 
     return {

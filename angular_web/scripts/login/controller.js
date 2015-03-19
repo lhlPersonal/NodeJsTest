@@ -7,10 +7,10 @@
  * 1.格式验证：单个输入框blur时如果有错误，则只提示单个，如果直接点击登录按钮则两个都验证。
  * 2.服务端验证：，格式验证通过后，不论哪个输入框blur或者直接点击login按钮都会对两个框进行验证。
  */
-app.controller("dvLoginController", ["$scope", "dvLoginService", "svProv","s11", function ($scope, dvLoginService, svProv,s11) {
+app.controller("dvLoginController", ["$scope", "dvLoginService", "svProv", "s11", function ($scope, dvLoginService, svProv, s11) {
     console.log("controller start");
-    alert(svProv.getUrl());
-    s11.showAlert();
+    //  alert(svProv.getUrl());
+    // s11.showAlert();
     $scope.nameBlurError = false;//name框blur时是否显示错误
     $scope.pwdBlurError = false;//密码框blur时是否显示错误
     $scope.blurMark = false;//blur标记
@@ -118,6 +118,10 @@ app.controller("dvLoginController", ["$scope", "dvLoginService", "svProv","s11",
     $scope.show1 = function () {
         return true;
     }
+
+//    $scope.$evalAsync(function () {
+//        $scope.userInfo.name = "eval async";
+//    });
 }]);
 
 

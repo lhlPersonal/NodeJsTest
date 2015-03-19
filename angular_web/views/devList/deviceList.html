@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="dvDevListApp" bindonce>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <title>Device List</title>
+    <base href="/">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/devList.css">
+</head>
+<body>
+<div class="container" ng-controller="dvDevListController">
+    <!-- Split button -->
+    <div ng-repeat="g in devGrps track by $index">
+        <dv-grprepeat></dv-grprepeat>
+    </div>
+</div>
+</body>
+</html>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-bindonce/bindonce.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="scripts/devList/config.js"></script>
+<script src="scripts/devList/service.js"></script>
+<script src="scripts/devList/directive.js"></script>
+<script src="scripts/devList/controller.js"></script>
+<script src="scripts/common/utils.js"></script>

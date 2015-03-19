@@ -3,7 +3,7 @@
  */
 
 'use strict';
-app.controller('InvlistCtrl', ['invlistSvce', '$scope', '$routeParams', '$http', '$compile', function (invlistSvce, $scope, $routeParams, $http, $compile) {
+app.controller('InvlistCtrl', ['$scope', '$routeParams', '$http', '$compile', 'invlistSvce', function ($scope, $routeParams, $http, $compile, invlistSvce) {
     console.log("app controller called");
     $scope.device = {};
     $scope.setDevScope = function (dev) {
@@ -16,7 +16,7 @@ app.controller('InvlistCtrl', ['invlistSvce', '$scope', '$routeParams', '$http',
     }
     $scope.save = function () {
         if (!($scope.device._id)) {
-            invlistSvce.save($scope.device, $scope);
+            invlistSvce.save($scope.device);
         } else {
             invlistSvce.update($scope.device, $scope);
         }

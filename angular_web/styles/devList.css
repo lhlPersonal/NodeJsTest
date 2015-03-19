@@ -1,0 +1,41 @@
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    left: 75%;
+    min-width: 10px;
+    top: 95%
+}
+
+.leftLabel {
+    width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+label {
+    float: left;
+}
+
+.name {
+    display: inline-block;
+    width: 300px;
+    margin-left: 60px;
+}
+
+.desc {
+    display: inline-block;
+    width: 400px;
+    margin-left: 20px;
+}
+
+.modal-title {
+    text-align: center;
+    font-size: large;
+}
+
+.modal-header {
+    padding: 0;
+}

@@ -2,32 +2,36 @@
  * Created by bulusli on 2014/10/14.
  */
 'use strict';
-app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Restangular', function ($http, $window, $location, $resource, Restangular) {
+app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Restangular', '$q', function ($http, $window, $location, $resource, Restangular, $q) {
     var baseSvrUrl = '/svr/inv/';
 
     function save(data, $scope) {
-//        $http({
-//            method: 'post',
-//            url: baseSvrUrl + 'add',
-//            data: data
-//        }).success(function (data) {
-//            {
-//                if (data.error) {
-//                    $window.alert(data.error);
-//                } else {
-//                    $scope.devices.push(data);
-//                }
-//            }
-//        })
+        // var defer = $q.defer();
 
-        //$resource主要用于和restfulAPI进行交互。普通的http请求不太合适。
-        $resource(baseSvrUrl + 'add').save({}, data, function (data) {
+        $http({
+            method: 'post',
+            url: baseSvrUrl + 'add',
+            data: data
+        }).success(function (data) {
+            //    defer.resolve(data);
+
             if (data.error) {
                 $window.alert(data.error);
             } else {
                 $scope.devices.push(data);
             }
-        });
+
+        })
+        // return defer.promise;
+
+        //$resource主要用于和restfulAPI进行交互。普通的http请求不太合适。
+//        $resource(baseSvrUrl + 'add').save({}, data, function (data) {
+//            if (data.error) {
+//                $window.alert(data.error);
+//            } else {
+//                $scope.devices.push(data);
+//            }
+//        });
     };
     function update(dev, $scope) {
         var q = $http({
@@ -37,16 +41,14 @@ app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Resta
             params: dev
         });
         q.success(function (data, status, headers, config) {
-            {
-                if (data.error) {
-                    $window.alert(data.error);
-                } else {
-                    $scope.devices.forEach(function (item, index) {
-                        if (item._id === dev._id) {
-                            $scope.devices[index] = dev;
-                        }
-                    })
-                }
+            if (data.error) {
+                $window.alert(data.error);
+            } else {
+                $scope.devices.forEach(function (item, index) {
+                    if (item._id === dev._id) {
+                        $scope.devices[index] = dev;
+                    }
+                })
             }
         }).error(function (data, status, headers, config) {
             $window.alert(status);
@@ -59,12 +61,10 @@ app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Resta
             params: {id: id}
         });
         q.success(function (data) {
-            {
-                if (data.error) {
-                    $window.alert(data.error);
-                } else {
-                    $scope.device = data;
-                }
+            if (data.error) {
+                $window.alert(data.error);
+            } else {
+                $scope.device = data;
             }
         })
     };
@@ -74,27 +74,26 @@ app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Resta
             url: baseSvrUrl + 'del',
             params: {id: id}
         }).success(function (data) {
-            {
-                if (data.error) {
-                    $window.alert(data.error);
-                } else {
-                    var arr = [], index;
 
-                    $scope.devices.forEach(function (item, _index) {
-                        if (item._id !== id) {
-                            arr.push(item);
-                        } else {
-                            index = _index;
-                        }
-                    })
-                    //最后一个则取前一个的值
-                    if (index == $scope.devices.length - 1) {
-                        index -= 1;
+            if (data.error) {
+                $window.alert(data.error);
+            } else {
+                var arr = [], index;
+
+                $scope.devices.forEach(function (item, _index) {
+                    if (item._id !== id) {
+                        arr.push(item);
+                    } else {
+                        index = _index;
                     }
-                    $scope.devices = arr;
-                    $scope.device = arr[index];
-                    $location.path("/ilist/detail/" + $scope.device._id);
+                })
+                //最后一个则取前一个的值
+                if (index == $scope.devices.length - 1) {
+                    index -= 1;
                 }
+                $scope.devices = arr;
+                $scope.device = arr[index];
+                $location.path("/ilist/detail/" + $scope.device._id);
             }
         })
     };
@@ -105,12 +104,10 @@ app.factory('invlistSvce', ['$http', '$window', '$location', '$resource', 'Resta
             data: {}
         });
         q.success(function (data) {
-            {
-                if (!data.error) {
-                    $scope.devices = data;
-                } else {
-                    $window.alert(data.error);
-                }
+            if (!data.error) {
+                $scope.devices = data;
+            } else {
+                $window.alert(data.error);
             }
         })
     }

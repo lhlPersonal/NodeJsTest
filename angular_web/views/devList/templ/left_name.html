@@ -1,0 +1,12 @@
+<div class="btn-group" dropdown>
+    <span class="btn btn-info leftLabel" tooltip="{{g.desc}}">{{g.name}}</span>
+    <span class="btn btn-success" dropdown-toggle>
+        <span class="caret"></span>
+    </span>
+    <ul class="dropdown-menu" role="menu">
+        <li><a ng-click="showNew()">Add</a></li>
+        <li><a ng-click="showEdit(g,$index)">Edit</a></li>
+        <li><a ng-click="showDelAlert(g.id)">Delete</a></li>
+
+    </ul>
+</div>
