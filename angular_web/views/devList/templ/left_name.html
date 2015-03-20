@@ -1,5 +1,5 @@
-<div class="btn-group" dropdown>
-    <span class="btn btn-info leftLabel" tooltip="{{g.desc}}">{{g.name}}</span>
+<li class="btn-group" dropdown>
+    <span class="btn btn-info leftLabel" ng-click="showDevs(g.id)" tooltip="{{g.desc}}">{{g.name}}</span>
     <span class="btn btn-success" dropdown-toggle>
         <span class="caret"></span>
     </span>
@@ -9,4 +9,4 @@
         <li><a ng-click="showDelAlert(g.id)">Delete</a></li>
 
     </ul>
-</div>
+</li>

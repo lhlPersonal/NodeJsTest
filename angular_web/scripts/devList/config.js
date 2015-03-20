@@ -1,7 +1,7 @@
 /**
  * Created by bulusli on 2015/2/27.
  */
-var app = angular.module("dvDevListApp", ["ui.bootstrap", "pasvaz.bindonce", "dvUtils"]);
+var app = angular.module("dvDevListApp", ["ui.bootstrap", "pasvaz.bindonce", "ngGrid", "dvUtils"]);
 app.run(["$cacheFactory", "guidService", function ($cacheFactory, guidService) {
     var devGrpHash = $cacheFactory("devGrpHash");
     var devHash = $cacheFactory("devHash");
@@ -28,8 +28,8 @@ app.run(["$cacheFactory", "guidService", function ($cacheFactory, guidService) {
     .config(["$tooltipProvider", function ($tooltipProvider) {
         $tooltipProvider.options({
             placement: 'right',
-            animation: true,
+            animation: false,
             popupDelay: 0
         });
-        $tooltipProvider.setTriggers({"mouseover": ""});
+        $tooltipProvider.setTriggers({"mouseover": "mouseout"});
     }])

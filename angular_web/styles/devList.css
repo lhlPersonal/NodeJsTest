@@ -39,3 +39,39 @@ label {
 .modal-header {
     padding: 0;
 }
+
+.left {
+    width: 15%;
+    height: inherit;
+}
+
+.right {
+    width: 85%;
+    background-color: rgb(240, 223, 190);
+    /* border: 1px solid gray; */
+    height: inherit;
+}
+
+.container-fluid1 {
+    height: 600px;
+}
+
+.row-fluid, .sidebar-nav {
+    height: inherit;
+}
+
+hr {
+    border: 1px solid;
+}
+
+.well {
+    border-radius: 0;
+    border-right: 1px solid white;
+    background-color: #F1D6D6;
+}
+
+.gridStyle {
+    border: 1px solid rgb(212, 212, 212);
+    width: 400px;
+    height: 300px;
+}
