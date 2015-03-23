@@ -2,30 +2,13 @@
  * Created by bulusli on 2015/2/27.
  */
 app.controller('dvDevListController', ['$scope', '$modal', 'dvDevListService', 'guidService', function ($scope, $modal, dvDevListService, guidService) {
-    var setPagingData = function (data, page, pageSize, searchText) {
-        var pageData;
-        var devList = dvDevListService.devListByGrpId($scope.gid);
-
-        if (searchText) {
-            var ft = searchText.toLowerCase();
-            pageData = devList.filter(function (item) {
-                return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-            });
-        } else {
-            pageData = devList;
-        }
-        $scope.myData = pageData.slice((page - 1) * pageSize, page * pageSize);
-        $scope.totalServerItems = data.length;
-    };
-
     var getData = function () {
-        return dvDevListService.devListByGrpId($scope.gid);
+        return dvDevListService.devListByGrpId($scope.gid || $scope.devGrps[0].id);
     };
 
-    var refershData = function () {
-        setPagingData(getData(), $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+    $scope.refershData = function () {
+        $scope.myData = getData();
     };
-
     $scope.devGrps = dvDevListService.devGrpList();
     $scope.showDelAlert = function (gid) {
         var modalInstance = $modal.open({
@@ -103,25 +86,20 @@ app.controller('dvDevListController', ['$scope', '$modal', 'dvDevListService', '
     }
     $scope.showDevs = function (gid) {
         $scope.gid = gid;
-        refershData();
+        $scope.refershData();
     }
+    $scope.refershData();
 
-    $scope.filterOptions = {
-        filterText: "",
-        useExternalFilter: true
-    };
-    $scope.totalServerItems = 0;
-    $scope.pagingOptions = {
-        pageSizes: [10, 20, 50],
-        pageSize: 20,
-        currentPage: 1
-    };
     $scope.gridOptions = {
-        data: getData(),
-        enablePaging: true,
-        showFooter: true,
-        totalServerItems: 'totalServerItems',
-        pagingOptions: $scope.pagingOptions,
-        filterOptions: $scope.filterOptions
+        data: $scope.myData,
+        jqueryUITheme: true,
+       // showGroupPanel: true,
+       // jqueryUIDraggable: true,
+      //  showGridFooter: true,
+        //showColumnFooter: true,
+        //  showFooter: true,
+        paginationPageSizes: [10, 20, 50],
+        paginationPageSize: 20,
+        paginationCurrentPage: 1
     };
 }])

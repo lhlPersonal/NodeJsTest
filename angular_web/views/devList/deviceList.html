@@ -7,7 +7,7 @@
     <base href="/">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/devList.css">
-    <link rel="stylesheet" href="ng-grid/ng-grid.min.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.min.css">
 </head>
 <body>
 <!-- Split button -->
@@ -17,13 +17,13 @@
         <div class="pull-left left">
             <div class="well sidebar-nav">
                 <div class="nav-header">Managed Devices</div>
-                <ul class="nav nav-list" ng-repeat="g in devGrps track by $index" dv-data-init>
+                <ul class="nav nav-list"  dv-data-init>
                     <dv-grprepeat></dv-grprepeat>
                 </ul>
             </div>
         </div>
         <div class="pull-right right">
-            <div class="gridStyle" ng-grid="gridOptions"></div>
+            <div ui-grid="gridOptions" ui-grid-pagination class="grid">
         </div>
         <div class="clearfix"></div>
         <hr>
@@ -34,11 +34,12 @@
 </div>
 </body>
 </html>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/angular-bindonce/bindonce.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/ng-grid/build/ng-grid.js"></script>
+<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
 <script src="scripts/devList/config.js"></script>
 <script src="scripts/devList/service.js"></script>
 <script src="scripts/devList/directive.js"></script>

@@ -24,5 +24,8 @@
   },
   "private": true,
   "homepage": "https://github.com/lhlPersonal/NodeJsTest",
-  "description": "bower file"
+  "description": "bower file",
+  "devDependencies": {
+    "angular-ui-grid": "~3.0.0-rc.20"
+  }
 }

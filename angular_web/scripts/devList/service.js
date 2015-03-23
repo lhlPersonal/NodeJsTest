@@ -9,11 +9,14 @@ app.factory("dvDevListService", ["$cacheFactory", function ($cacheFactory) {
             return $cacheFactory.get("devGrpHash").get("devGrpList");
         },
         devListByGrpId: function (gid) {
-            return $cacheFactory.get("devHash").get("devList").find(function (value, index, arr) {
+            var arr = [];
+            $cacheFactory.get("devHash").get("devList").find(function (value, index) {
                 if (value.gid === gid) {
-                    return arr[index][gid];
+                    arr = value.devInGrp;
+                    return false;
                 }
             })
+            return arr;
         },
         addDevGrp: function (devGrp) {
             $cacheFactory.get("devGrpHash").get("devGrpList").push(devGrp);

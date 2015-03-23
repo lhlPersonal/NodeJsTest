@@ -1,7 +1,7 @@
 /**
  * Created by bulusli on 2015/2/27.
  */
-var app = angular.module("dvDevListApp", ["ui.bootstrap", "pasvaz.bindonce", "ngGrid", "dvUtils"]);
+var app = angular.module("dvDevListApp", ["ui.bootstrap", "pasvaz.bindonce","ui.grid","ui.grid.pagination", "dvUtils"]);
 app.run(["$cacheFactory", "guidService", function ($cacheFactory, guidService) {
     var devGrpHash = $cacheFactory("devGrpHash");
     var devHash = $cacheFactory("devHash");
@@ -14,10 +14,10 @@ app.run(["$cacheFactory", "guidService", function ($cacheFactory, guidService) {
     var devs = [];
 
     devGrpHash.put("devGrpList", devGrpArr);
-    devGrpArr.forEach(function (item) {
+    devGrpArr.forEach(function (item,index) {
         var devList = [100];
         for (var i = 0; i < 100; i++) {
-            devList[i] = {name: "dev" + i, ip: "172.18.190." + i, mac: ""};
+            devList[i] = {name: "dev" + i*index, ip: "172.18.190." + i, mac: ""};
         }
 
         var obj = {gid: item.id, devInGrp: devList};

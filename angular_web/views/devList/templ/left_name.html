@@ -1,4 +1,4 @@
-<li class="btn-group" dropdown>
+<li class="btn-group" dropdown ng-repeat="g in devGrps track by $index">
     <span class="btn btn-info leftLabel" ng-click="showDevs(g.id)" tooltip="{{g.desc}}">{{g.name}}</span>
     <span class="btn btn-success" dropdown-toggle>
         <span class="caret"></span>
